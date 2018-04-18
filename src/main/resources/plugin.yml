@@ -1,5 +1,5 @@
 main: io.github.mrsperry.dynamiccrafting.Main
 name: DynamicCrafting
 version: 1.0.0
-description: Allows in-world crafting options.
+description: Allows custom recipes and many methods for in-world crafting.
 authors: [dinner1111, PepsiDog]
