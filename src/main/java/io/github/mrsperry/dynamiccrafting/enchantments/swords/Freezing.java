@@ -29,7 +29,7 @@ public class Freezing extends CustomEnchantment {
     public static void playEffect(EntityDamageByEntityEvent event) {
         Entity target = event.getEntity();
         if (Utils.checkEntities(target, event.getDamager(), "FREEZING")) {
-            ((LivingEntity) target).addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 10, 1));
+            ((LivingEntity) target).addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 200, 1, false));
         }
     }
 }
