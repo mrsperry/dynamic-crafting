@@ -1,9 +1,12 @@
 package io.github.mrsperry.dynamiccrafting.enchantments.swords;
 
+import io.github.mrsperry.dynamiccrafting.Utils;
+
 import io.github.pepsidawg.enchantmentapi.CustomEnchantment;
 import io.github.pepsidawg.enchantmentapi.EnchantmentManager;
 
 import org.bukkit.enchantments.EnchantmentTarget;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -21,11 +24,9 @@ public class Bloodbound extends CustomEnchantment {
     }
 
     public static void playEffect(EntityDamageByEntityEvent event) {
-        if (event.getEntity() instanceof Player) {
-            Player player = (Player) event.getEntity();
-            if (EnchantmentManager.hasCustomEnchantment(player.getInventory().getItemInMainHand(), "BLOODBOUND")) {
-                event.setDamage(player.getHealth() + event.getDamage());
-            }
+        Entity damager = event.getDamager();
+        if (Utils.checkEntities(event.getEntity(), damager, "BLOODBOUND")) {
+            event.setDamage(((Player) damager).getHealth() + event.getDamage());
         }
     }
 }

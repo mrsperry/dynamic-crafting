@@ -1,7 +1,10 @@
 package io.github.mrsperry.dynamiccrafting.enchantments.swords;
 
+import io.github.mrsperry.dynamiccrafting.Utils;
+
 import io.github.pepsidawg.enchantmentapi.CustomEnchantment;
 import io.github.pepsidawg.enchantmentapi.EnchantmentManager;
+
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -23,9 +26,9 @@ public class Venomous extends CustomEnchantment {
     }
 
     public static void playEffect(EntityDamageByEntityEvent event) {
-        Entity entity = event.getEntity();
-        if (entity instanceof LivingEntity) {
-            ((LivingEntity) entity).addPotionEffect(new PotionEffect(PotionEffectType.POISON, 10, 1));
+        Entity target = event.getEntity();
+        if (Utils.checkEntities(target, event.getDamager(), "FREEZING")) {
+            ((LivingEntity) target).addPotionEffect(new PotionEffect(PotionEffectType.POISON, 10, 1));
         }
     }
 }

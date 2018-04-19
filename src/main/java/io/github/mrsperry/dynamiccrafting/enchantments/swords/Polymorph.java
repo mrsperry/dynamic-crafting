@@ -43,22 +43,23 @@ public class Polymorph extends CustomEnchantment {
     }
 
     public static void playEffect(EntityDamageByEntityEvent event) {
-        Random random = Main.getRandom();
-        if (random.nextInt(10) == 0) {
-            EntityType type = event.getEntityType();
-            EntityType newType = null;
-            if (friendlies.contains(type)) {
-                newType = getNewType(type, friendlies);
-            } else if (enemies.contains(type)) {
-                newType = getNewType(type, enemies);
-            }
+        Entity target = event.getEntity();
+        if (Utils.checkEntities(target, event.getDamager(), "POLYMORPH")) {
+            Random random = Main.getRandom();
+            if (random.nextInt(10) == 0) {
+                EntityType type = event.getEntityType();
+                EntityType newType = null;
+                if (friendlies.contains(type)) {
+                    newType = getNewType(type, friendlies);
+                } else if (enemies.contains(type)) {
+                    newType = getNewType(type, enemies);
+                }
 
-            if (newType != null) {
-                Entity entity = event.getEntity();
+                if (newType != null) {
+                    Utils.createPortalEffect(target.getLocation());
 
-                Utils.createPortalEffect(entity.getLocation());
-
-                entity.remove();
+                    target.remove();
+                }
             }
         }
     }

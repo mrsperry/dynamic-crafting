@@ -1,5 +1,7 @@
 package io.github.mrsperry.dynamiccrafting.enchantments.swords;
 
+import io.github.mrsperry.dynamiccrafting.Utils;
+
 import io.github.pepsidawg.enchantmentapi.CustomEnchantment;
 import io.github.pepsidawg.enchantmentapi.EnchantmentManager;
 
@@ -25,9 +27,9 @@ public class Freezing extends CustomEnchantment {
     }
 
     public static void playEffect(EntityDamageByEntityEvent event) {
-        Entity entity = event.getEntity();
-        if (entity instanceof LivingEntity) {
-            ((LivingEntity) entity).addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 10, 1));
+        Entity target = event.getEntity();
+        if (Utils.checkEntities(target, event.getDamager(), "FREEZING")) {
+            ((LivingEntity) target).addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 10, 1));
         }
     }
 }
