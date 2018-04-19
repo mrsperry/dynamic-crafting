@@ -49,7 +49,6 @@ public class Distortion extends CustomEnchantment {
                 Utils.createPortalEffect(location);
 
                 target.remove();
-
             }
         }
     }

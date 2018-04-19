@@ -1,5 +1,6 @@
 package io.github.mrsperry.dynamiccrafting;
 
+import io.github.mrsperry.dynamiccrafting.enchantments.swords.*;
 import io.github.pepsidawg.enchantmentapi.EnchantmentManager;
 
 import org.bukkit.command.Command;
@@ -29,14 +30,37 @@ public class Main extends JavaPlugin implements CommandExecutor {
         }
 
         this.getCommand("customenchant").setExecutor(this);
+
+        try {
+            EnchantmentManager.registerEnchantment(new Bloodbound());
+            EnchantmentManager.registerEnchantment(new Chaos());
+            EnchantmentManager.registerEnchantment(new Distortion());
+            EnchantmentManager.registerEnchantment(new Draining());
+            EnchantmentManager.registerEnchantment(new Freezing());
+            EnchantmentManager.registerEnchantment(new Polymorph());
+            EnchantmentManager.registerEnchantment(new StaticDischarge());
+            EnchantmentManager.registerEnchantment(new Trance());
+            EnchantmentManager.registerEnchantment(new Vampiric());
+            EnchantmentManager.registerEnchantment(new Venomous());
+            EnchantmentManager.registerEnchantment(new Wyrmbane());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String cmdLine, String[] args) {
-        try {
-            EnchantmentManager.enchantItem(((Player) sender).getInventory().getItemInMainHand(), EnchantmentManager.getEnchantByName(args[0]), 1, true);
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        if (command.getName().equalsIgnoreCase("customenchant")) {
+            try {
+                ((Player) sender).getInventory().setItemInMainHand(EnchantmentManager.addUnsafeEnchantment(
+                        ((Player) sender).getInventory().getItemInMainHand(),
+                        EnchantmentManager.getEnchantByName(args[0]),
+                        1)
+                );
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            return true;
         }
         return false;
     }
