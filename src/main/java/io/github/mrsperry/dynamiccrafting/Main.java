@@ -27,6 +27,8 @@ public class Main extends JavaPlugin implements CommandExecutor {
         for (Recipe recipe : Recipes.getShapelessRecipes()) {
             this.getServer().addRecipe(recipe);
         }
+
+        this.getCommand("customenchant").setExecutor(this);
     }
 
     @Override
