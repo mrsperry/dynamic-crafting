@@ -28,7 +28,7 @@ public class Venomous extends CustomEnchantment {
     public static void playEffect(EntityDamageByEntityEvent event) {
         Entity target = event.getEntity();
         if (Utils.checkEntities(target, event.getDamager(), "VENOMOUS")) {
-            ((LivingEntity) target).addPotionEffect(new PotionEffect(PotionEffectType.POISON, 200, 1, false));
+            ((LivingEntity) target).addPotionEffect(new PotionEffect(PotionEffectType.POISON, 200, 0, false));
         }
     }
 }

@@ -6,9 +6,11 @@ import io.github.mrsperry.dynamiccrafting.Utils;
 import io.github.pepsidawg.enchantmentapi.CustomEnchantment;
 import io.github.pepsidawg.enchantmentapi.EnchantmentManager;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
@@ -30,24 +32,28 @@ public class Distortion extends CustomEnchantment {
         Entity target = event.getEntity();
         if (Utils.checkEntities(target, event.getDamager(), "DISTORTION")) {
             Random random = Main.getRandom();
-            if (random.nextInt(5) == 0) {
+            if (random.nextInt(1) == 0) {
                 Location location = target.getLocation();
 
                 int seed = random.nextInt(100);
                 if (seed < 60) {
                     event.setDamage(random.nextInt(5) + 1 + event.getDamage());
                 } else if (seed >= 60 && seed < 85) {
+                    if (Utils.willKillEntity((LivingEntity) target, event.getDamage()));
                     event.setCancelled(true);
 
                     Location destination = Utils.getValidLocation(location, 10);
-                    Utils.createPortalEffect(location);
-                    Utils.createPortalEffect(destination);
+                    if (destination != null && destination != event.getDamager().getLocation()) {
+                        Bukkit.broadcastMessage(location.distance(destination) + "");
+                        Utils.createPortalEffect(location);
+                        Utils.createPortalEffect(destination);
 
-                    target.teleport(destination);
+                        target.teleport(destination);
+                    }
                 } else {
                     event.setCancelled(true);
 
-                    Utils.createPortalEffect(location);
+                    Utils.createVoidEffect(location);
 
                     target.remove();
                 }

@@ -26,7 +26,8 @@ public class Bloodbound extends CustomEnchantment {
     public static void playEffect(EntityDamageByEntityEvent event) {
         Entity damager = event.getDamager();
         if (Utils.checkEntities(event.getEntity(), damager, "BLOODBOUND")) {
-            event.setDamage(((Player) damager).getHealth() + event.getDamage());
+            double health = ((Player) damager).getHealth();
+            event.setDamage(health + (health % 0.5f));
         }
     }
 }
