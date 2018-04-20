@@ -5,6 +5,7 @@ import io.github.mrsperry.dynamiccrafting.Utils;
 import io.github.pepsidawg.enchantmentapi.CustomEnchantment;
 import io.github.pepsidawg.enchantmentapi.EnchantmentManager;
 
+import org.bukkit.Bukkit;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -27,12 +28,12 @@ public class Draining extends CustomEnchantment {
         Entity target = event.getEntity();
         Entity damager = event.getDamager();
         if (Utils.checkEntities(target, damager, "DRAINING")) {
-            float damage = (float) Math.floor(event.getDamage() / 3);
-            damage += damage % 0.5f;
+            float damage = (float) Math.floor(event.getDamage() / 10);
+            damage += damage % 1;
 
             Player player = (Player) damager;
-            float saturation = player.getSaturation();
-            player.setSaturation(saturation >= 20 ? 20f : saturation + damage);
+            int level = player.getFoodLevel();
+            player.setFoodLevel(level >= 20 ? 20 : level + (int) damage);
         }
     }
 }
