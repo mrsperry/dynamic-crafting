@@ -6,7 +6,6 @@ import io.github.mrsperry.dynamiccrafting.Utils;
 import io.github.pepsidawg.enchantmentapi.CustomEnchantment;
 import io.github.pepsidawg.enchantmentapi.EnchantmentManager;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Entity;
@@ -39,23 +38,23 @@ public class Distortion extends CustomEnchantment {
                 if (seed < 60) {
                     event.setDamage(random.nextInt(5) + 1 + event.getDamage());
                 } else if (seed >= 60 && seed < 85) {
-                    if (Utils.willKillEntity((LivingEntity) target, event.getDamage()));
-                    event.setCancelled(true);
+                    if (!Utils.willKillEntity((LivingEntity) target, event.getDamage())) {
+                        event.setCancelled(true);
 
-                    Location destination = Utils.getValidLocation(location, 10);
-                    if (destination != null && destination != event.getDamager().getLocation()) {
-                        Bukkit.broadcastMessage(location.distance(destination) + "");
-                        Utils.createPortalEffect(location);
-                        Utils.createPortalEffect(destination);
+                        Location destination = Utils.getValidLocation(location, 10);
+                        if (destination != null && destination != event.getDamager().getLocation()) {
+                            Utils.createPortalEffect(location);
+                            Utils.createPortalEffect(destination);
 
-                        target.teleport(destination);
+                            target.teleport(destination);
+                        }
                     }
                 } else {
                     event.setCancelled(true);
 
                     Utils.createVoidEffect(location);
 
-                    target.remove();
+                    target.teleport(location.add(0, -location.getBlockY() - 5, 0));
                 }
             }
         }
