@@ -8,6 +8,7 @@ import io.github.mrsperry.dynamiccrafting.Utils;
 import io.github.pepsidawg.enchantmentapi.CustomEnchantment;
 import io.github.pepsidawg.enchantmentapi.EnchantmentManager;
 
+import org.bukkit.Bukkit;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
@@ -41,37 +42,35 @@ public class Polymorph extends CustomEnchantment {
     @EventHandler
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
         if (Utils.checkEntities(event.getEntity(), event.getDamager(), "POLYMORPH")) {
-            playEffect(event);
+            if (Main.getRandom().nextInt(15) == 0) {
+                playEffect(event);
+            }
         }
     }
 
     public static void playEffect(EntityDamageByEntityEvent event) {
-        Random random = Main.getRandom();
-
         LivingEntity target = (LivingEntity) event.getEntity();
         double damage = event.getDamage();
         if (!Utils.willKillEntity(target, damage)) {
-            if (random.nextInt(15) == 0) {
-                event.setCancelled(true);
+            event.setCancelled(true);
 
-                EntityType type = event.getEntityType();
-                EntityType newType = null;
-                if (friendlies.contains(type)) {
-                    newType = getNewType(type, friendlies);
-                } else if (enemies.contains(type)) {
-                    newType = getNewType(type, enemies);
-                }
+            EntityType type = event.getEntityType();
+            EntityType newType = null;
+            if (friendlies.contains(type)) {
+                newType = getNewType(type, friendlies);
+            } else if (enemies.contains(type)) {
+                newType = getNewType(type, enemies);
+            }
 
-                if (newType != null) {
-                    Utils.createPortalEffect(target.getLocation());
+            if (newType != null) {
+                Utils.createPortalEffect(target.getLocation());
 
-                    LivingEntity newEntity = (LivingEntity) target.getWorld().spawnEntity(target.getLocation(), newType);
-                    double health = target.getHealth();
-                    double maxHealth = newEntity.getMaxHealth();
-                    newEntity.setHealth(health > maxHealth ? maxHealth : health);
-                    newEntity.damage(damage);
-                    target.remove();
-                }
+                LivingEntity newEntity = (LivingEntity) target.getWorld().spawnEntity(target.getLocation(), newType);
+                double health = target.getHealth();
+                double maxHealth = newEntity.getMaxHealth();
+                newEntity.setHealth(health > maxHealth ? maxHealth : health);
+                newEntity.damage(damage);
+                target.remove();
             }
         }
     }

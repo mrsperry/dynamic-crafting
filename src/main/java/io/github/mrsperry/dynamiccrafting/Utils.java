@@ -52,7 +52,7 @@ public class Utils {
 
     public static void createPortalEffect(Location location) {
         World world = location.getWorld();
-        world.playSound(location, Sound.BLOCK_PORTAL_TRAVEL, 1, 1);
+        world.playSound(location, Sound.ENTITY_SHULKER_TELEPORT, 1, 1);
         world.spawnParticle(Particle.PORTAL, location.add(0.5f, 0.5f, 0.5f), 50, 1, 0.5f, 1);
     }
 

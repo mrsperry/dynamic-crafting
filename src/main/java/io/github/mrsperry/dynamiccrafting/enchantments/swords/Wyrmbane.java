@@ -29,7 +29,6 @@ public class Wyrmbane extends CustomEnchantment {
     public static void playEffect(EntityDamageByEntityEvent event) {
         if (event.getEntityType() == EntityType.ENDER_DRAGON) {
             int damage = Main.getRandom().nextInt(7) + 1;
-            Bukkit.broadcastMessage("Dragon damage: " + damage);
             event.setDamage(event.getDamage() + damage);
         }
     }

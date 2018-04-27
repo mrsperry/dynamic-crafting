@@ -9,6 +9,7 @@ import io.github.pepsidawg.enchantmentapi.CustomEnchantment;
 import io.github.pepsidawg.enchantmentapi.EnchantmentManager;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
@@ -38,49 +39,42 @@ public class Chaos extends CustomEnchantment {
     public static void playEffect(EntityDamageByEntityEvent event) {
         LivingEntity target = (LivingEntity) event.getEntity();
         int seed = random.nextInt(100);
-        Bukkit.broadcastMessage("Seed: " + seed);
-        if (seed >= 40 && seed < 60) {
-            if (random.nextInt(20) == 0) {
+        if (seed >= 60 && seed < 80) {
+            if (random.nextInt(5) == 0) {
                 if (random.nextBoolean()) {
-                    target.setFireTicks(15);
+                    target.setFireTicks(100);
                 } else {
                     target.getWorld().strikeLightning(target.getLocation());
                 }
             } else {
-                Bukkit.broadcastMessage("Mob target");
                 applyRandomEffect(target);
+                target.getWorld().playSound(target.getLocation(), Sound.ENTITY_SPLASH_POTION_BREAK, 6.0f, 1);
             }
-        } else if (seed >= 60 && seed < 70) {
-            Bukkit.broadcastMessage("Player target");
-            applyRandomEffect((LivingEntity) event.getDamager());
-        } else if (seed >= 70) {
+        } else if (seed >= 80 && seed < 90) {
+            LivingEntity damager = (LivingEntity) event.getDamager();
+            applyRandomEffect(damager);
+            damager.getWorld().playSound(damager.getLocation(), Sound.BLOCK_BREWING_STAND_BREW, 6.0f, 1);
+        } else if (seed >= 90) {
             switch (random.nextInt(7)) {
                 case 0:
-                    Bukkit.broadcastMessage("Distortion effect");
                     Distortion.playEffect(event);
                     break;
                 case 1:
-                    Bukkit.broadcastMessage("Drain effect");
                     Draining.playEffect(event);
                     break;
                 case 2:
-                    Bukkit.broadcastMessage("Freeze effect");
                     Freezing.playEffect(event);
                     break;
                 case 3:
-                    Bukkit.broadcastMessage("Poly effect");
                     Polymorph.playEffect(event);
                     break;
                 case 4:
-                    Bukkit.broadcastMessage("Static effect");
                     StaticDischarge.playEffect(event);
                     break;
                 case 5:
-                    Bukkit.broadcastMessage("Vampiric effect");
                     Vampiric.playEffect(event);
                     break;
                 case 6:
-                    Bukkit.broadcastMessage("Venom effect");
                     Venomous.playEffect(event);
                     break;
             }
@@ -99,9 +93,7 @@ public class Chaos extends CustomEnchantment {
 
         PotionEffectType type = types.get(random.nextInt(types.size()));
         int duration = (random.nextInt(35) + 10) * 20;
-        int amplifier = random.nextInt(3);
-
-        Bukkit.broadcastMessage("Added effect: " + type.toString() + " for " + duration + " at " + amplifier);
+        int amplifier = random.nextInt(2);
         entity.addPotionEffect(new PotionEffect(type, duration, amplifier, false));
     }
 }

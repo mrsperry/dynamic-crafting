@@ -5,6 +5,7 @@ import io.github.mrsperry.dynamiccrafting.Utils;
 import io.github.pepsidawg.enchantmentapi.CustomEnchantment;
 import io.github.pepsidawg.enchantmentapi.EnchantmentManager;
 
+import org.bukkit.Sound;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
@@ -27,6 +28,8 @@ public class Venomous extends CustomEnchantment {
     }
 
     public static void playEffect(EntityDamageByEntityEvent event) {
-        ((LivingEntity) event.getEntity()).addPotionEffect(new PotionEffect(PotionEffectType.POISON, 200, 0, false));
+        LivingEntity target = (LivingEntity) event.getEntity();
+        target.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 200, 0, false));
+        target.getWorld().playSound(target.getLocation(), Sound.ENTITY_SPLASH_POTION_BREAK, 6.0f, 1);
     }
 }

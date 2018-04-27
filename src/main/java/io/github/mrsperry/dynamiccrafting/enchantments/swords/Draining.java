@@ -5,6 +5,7 @@ import io.github.mrsperry.dynamiccrafting.Utils;
 import io.github.pepsidawg.enchantmentapi.CustomEnchantment;
 import io.github.pepsidawg.enchantmentapi.EnchantmentManager;
 
+import org.bukkit.Sound;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -29,6 +30,7 @@ public class Draining extends CustomEnchantment {
         damage += damage % 1;
 
         Player player = (Player) event.getDamager();
+        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ENDERDRAGON_FLAP, 2, 2);
         int level = player.getFoodLevel();
         player.setFoodLevel(level >= 20 ? 20 : level + (int) damage);
     }
