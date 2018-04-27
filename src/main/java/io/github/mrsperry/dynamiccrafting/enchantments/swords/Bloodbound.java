@@ -6,7 +6,6 @@ import io.github.pepsidawg.enchantmentapi.CustomEnchantment;
 import io.github.pepsidawg.enchantmentapi.EnchantmentManager;
 
 import org.bukkit.enchantments.EnchantmentTarget;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -20,14 +19,13 @@ public class Bloodbound extends CustomEnchantment {
 
     @EventHandler
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
-        playEffect(event);
+        if (Utils.checkEntities(event.getEntity(), event.getDamager(), "BLOODBOUND")) {
+            playEffect(event);
+        }
     }
 
     public static void playEffect(EntityDamageByEntityEvent event) {
-        Entity damager = event.getDamager();
-        if (Utils.checkEntities(event.getEntity(), damager, "BLOODBOUND")) {
-            double health = ((Player) damager).getHealth();
-            event.setDamage(health + (health % 0.5f));
-        }
+        double health = ((Player) event.getDamager()).getHealth();
+        event.setDamage(health + (health % 0.5f));
     }
 }

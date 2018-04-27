@@ -39,7 +39,7 @@ public class Main extends JavaPlugin implements CommandExecutor {
             EnchantmentManager.registerEnchantment(new Freezing());
             EnchantmentManager.registerEnchantment(new Polymorph());
             EnchantmentManager.registerEnchantment(new StaticDischarge());
-            EnchantmentManager.registerEnchantment(new Trance());
+            EnchantmentManager.registerEnchantment(new Trance(this));
             EnchantmentManager.registerEnchantment(new Vampiric());
             EnchantmentManager.registerEnchantment(new Venomous());
             EnchantmentManager.registerEnchantment(new Wyrmbane());

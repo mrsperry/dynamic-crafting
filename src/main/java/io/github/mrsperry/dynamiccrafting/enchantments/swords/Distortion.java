@@ -24,38 +24,38 @@ public class Distortion extends CustomEnchantment {
 
     @EventHandler
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
-        playEffect(event);
+        if (Utils.checkEntities(event.getEntity(), event.getDamager(), "DISTORTION")) {
+            playEffect(event);
+        }
     }
 
     public static void playEffect(EntityDamageByEntityEvent event) {
         Entity target = event.getEntity();
-        if (Utils.checkEntities(target, event.getDamager(), "DISTORTION")) {
-            Random random = Main.getRandom();
-            if (random.nextInt(1) == 0) {
-                Location location = target.getLocation();
+        Random random = Main.getRandom();
+        if (random.nextInt(1) == 0) {
+            Location location = target.getLocation();
 
-                int seed = random.nextInt(100);
-                if (seed < 60) {
-                    event.setDamage(random.nextInt(5) + 1 + event.getDamage());
-                } else if (seed >= 60 && seed < 85) {
-                    if (!Utils.willKillEntity((LivingEntity) target, event.getDamage())) {
-                        event.setCancelled(true);
-
-                        Location destination = Utils.getValidLocation(location, 10);
-                        if (destination != null && destination != event.getDamager().getLocation()) {
-                            Utils.createPortalEffect(location);
-                            Utils.createPortalEffect(destination);
-
-                            target.teleport(destination);
-                        }
-                    }
-                } else {
+            int seed = random.nextInt(100);
+            if (seed < 60) {
+                event.setDamage(random.nextInt(5) + 1 + event.getDamage());
+            } else if (seed >= 60 && seed < 85) {
+                if (!Utils.willKillEntity((LivingEntity) target, event.getDamage())) {
                     event.setCancelled(true);
 
-                    Utils.createVoidEffect(location);
+                    Location destination = Utils.getValidLocation(location, 10);
+                    if (destination != null && destination != event.getDamager().getLocation()) {
+                        Utils.createPortalEffect(location);
+                        Utils.createPortalEffect(destination);
 
-                    target.teleport(location.add(0, -location.getBlockY() - 5, 0));
+                        target.teleport(destination);
+                    }
                 }
+            } else {
+                event.setCancelled(true);
+
+                Utils.createVoidEffect(location);
+
+                target.teleport(location.add(0, -location.getBlockY() - 5, 0));
             }
         }
     }

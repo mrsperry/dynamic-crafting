@@ -6,7 +6,6 @@ import io.github.pepsidawg.enchantmentapi.CustomEnchantment;
 import io.github.pepsidawg.enchantmentapi.EnchantmentManager;
 
 import org.bukkit.enchantments.EnchantmentTarget;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -20,19 +19,17 @@ public class Vampiric extends CustomEnchantment {
 
     @EventHandler
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
-        playEffect(event);
+        if (Utils.checkEntities(event.getEntity(), event.getDamager(), "VAMPIRIC")) {
+            playEffect(event);
+        }
     }
 
     public static void playEffect(EntityDamageByEntityEvent event) {
-        Entity target = event.getEntity();
-        Entity damager = event.getDamager();
-        if (Utils.checkEntities(target, damager, "VAMPIRIC")) {
-            float damage = (float) Math.floor(event.getDamage() / 10);
-            damage += damage % 0.5f;
+        float damage = (float) Math.floor(event.getDamage() / 10);
+        damage += damage % 0.5f;
 
-            Player player = (Player) damager;
-            double health = player.getHealth();
-            player.setHealth(health >= 20 ? 20f : health + damage);
-        }
+        Player player = (Player) event.getDamager();
+        double health = player.getHealth();
+        player.setHealth(health >= 20 ? 20f : health + damage);
     }
 }

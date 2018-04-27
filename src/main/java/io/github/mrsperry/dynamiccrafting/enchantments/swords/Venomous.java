@@ -6,7 +6,6 @@ import io.github.pepsidawg.enchantmentapi.CustomEnchantment;
 import io.github.pepsidawg.enchantmentapi.EnchantmentManager;
 
 import org.bukkit.enchantments.EnchantmentTarget;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -22,13 +21,12 @@ public class Venomous extends CustomEnchantment {
 
     @EventHandler
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
-        playEffect(event);
+        if (Utils.checkEntities(event.getEntity(), event.getDamager(), "VENOMOUS")) {
+            playEffect(event);
+        }
     }
 
     public static void playEffect(EntityDamageByEntityEvent event) {
-        Entity target = event.getEntity();
-        if (Utils.checkEntities(target, event.getDamager(), "VENOMOUS")) {
-            ((LivingEntity) target).addPotionEffect(new PotionEffect(PotionEffectType.POISON, 200, 0, false));
-        }
+        ((LivingEntity) event.getEntity()).addPotionEffect(new PotionEffect(PotionEffectType.POISON, 200, 0, false));
     }
 }
