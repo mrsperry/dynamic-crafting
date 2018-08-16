@@ -2,6 +2,7 @@ package io.github.mrsperry.dynamiccrafting.enchantments.bows;
 
 import io.github.pepsidawg.enchantmentapi.CustomEnchantment;
 import io.github.pepsidawg.enchantmentapi.EnchantmentManager;
+
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;

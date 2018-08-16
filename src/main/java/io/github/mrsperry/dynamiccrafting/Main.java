@@ -1,6 +1,7 @@
 package io.github.mrsperry.dynamiccrafting;
 
 import io.github.mrsperry.dynamiccrafting.enchantments.swords.*;
+
 import io.github.pepsidawg.enchantmentapi.EnchantmentManager;
 
 import org.bukkit.command.Command;

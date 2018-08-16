@@ -30,7 +30,7 @@ public class Vampiric extends CustomEnchantment {
         damage += damage % 0.5f;
 
         Player player = (Player) event.getDamager();
-        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ENDERDRAGON_FLAP, 2, 2);
+        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ENDER_DRAGON_FLAP, 2, 2);
         double health = player.getHealth();
         player.setHealth(health >= 20 ? 20f : health + damage);
     }

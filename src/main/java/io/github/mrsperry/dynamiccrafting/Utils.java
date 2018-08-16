@@ -1,5 +1,6 @@
 package io.github.mrsperry.dynamiccrafting;
 
+import io.github.mrsperry.dynamiccrafting.Main;
 import io.github.pepsidawg.enchantmentapi.EnchantmentManager;
 
 import javafx.util.Pair;

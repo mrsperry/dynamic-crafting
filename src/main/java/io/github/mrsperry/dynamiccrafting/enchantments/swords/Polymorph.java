@@ -8,7 +8,6 @@ import io.github.mrsperry.dynamiccrafting.Utils;
 import io.github.pepsidawg.enchantmentapi.CustomEnchantment;
 import io.github.pepsidawg.enchantmentapi.EnchantmentManager;
 
-import org.bukkit.Bukkit;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
@@ -16,7 +15,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Polymorph extends CustomEnchantment {
     private static ArrayList<EntityType> friendlies = Lists.newArrayList(

@@ -30,7 +30,7 @@ public class Draining extends CustomEnchantment {
         damage += damage % 1;
 
         Player player = (Player) event.getDamager();
-        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ENDERDRAGON_FLAP, 2, 2);
+        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ENDER_DRAGON_FLAP, 2, 2);
         int level = player.getFoodLevel();
         player.setFoodLevel(level >= 20 ? 20 : level + (int) damage);
     }

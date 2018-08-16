@@ -6,7 +6,6 @@ import io.github.mrsperry.dynamiccrafting.Utils;
 import io.github.pepsidawg.enchantmentapi.CustomEnchantment;
 import io.github.pepsidawg.enchantmentapi.EnchantmentManager;
 
-import org.bukkit.Bukkit;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;

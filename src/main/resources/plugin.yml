@@ -3,6 +3,7 @@ name: DynamicCrafting
 version: 1.0.0
 description: Allows custom recipes and many methods for in-world crafting.
 authors: [dinner1111, PepsiDog]
+api-version: 1.13
 depend: [EnchantmentAPI]
 commands:
   customenchant:
